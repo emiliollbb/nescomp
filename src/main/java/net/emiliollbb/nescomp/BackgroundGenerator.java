@@ -20,13 +20,13 @@ public class BackgroundGenerator {
 		TreeMap<String, Integer> tileMap = new TreeMap<>();
 		List<Integer> tilesIndexes=new ArrayList<>(920);
 		
-		tiles.add(new Tile());
 		for(int row=0; row<30; row++) {
 			for(int col=0; col<32; col++) {
 				tiles.add(new Tile(pixels, palette, row, col));		
 			}			
 		}
 		
+		tileBank.add(new Tile());
 		for(Tile t: tiles) {
 			if(!tileBank.contains(t)) {
 				tileBank.add(t);
