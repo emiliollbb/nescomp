@@ -26,10 +26,11 @@ public class TileGenerator {
 		}
 		System.out.println();
 		
-		generateHex(tile);
+		System.out.println("Tile: "+generateHex(tile));
 	}
 	
-	public static void generateHex(char[] pixels) throws Exception {
+	public static String generateHex(char[] pixels) throws Exception {
+		StringBuilder sb=new StringBuilder();
 		StringBuffer line1=new StringBuffer(100);
 		StringBuffer line2=new StringBuffer(100);
 		if(pixels.length!=64) {
@@ -58,11 +59,11 @@ public class TileGenerator {
 		}
 		
 		String full = line1.toString()+line2.toString();
-		System.out.print(".byt ");
+		sb.append(".byt ");
 		for(int i=0; i<full.length(); i+=8) {
-			System.out.print(String.format("$%02X,", Integer.parseInt(full.substring(i,i+8),2)));
+			sb.append(String.format("$%02X,", Integer.parseInt(full.substring(i,i+8),2)));
 		}
-		System.out.println();
+		return sb.toString();
 	}
 	
 	public static void main(String[] args) throws Exception{

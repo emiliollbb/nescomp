@@ -33,15 +33,15 @@ public class Tile implements Comparable<Tile>  {
 		return sb.toString();
 	}
 	
-	public String getHexString() {
-		StringBuilder sb=new StringBuilder();
-		sb.append(".byt ");
+	public String getHexString() throws Exception {
+		char[] tile = new char[64];
+		int i=0;
 		for(int row=0; row<pixels.length; row++) {
 			for(int col=0; col<8; col++) {
-				sb.append(String.format("$%02X,", (int)pixels[row][col]));
+				tile[i++]=pixels[row][col];
 			}
 		}
-		return sb.toString();
+		return TileGenerator.generateHex(tile);
 	}
 
 	@Override

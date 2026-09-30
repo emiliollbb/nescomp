@@ -20,6 +20,7 @@ public class BackgroundGenerator {
 		TreeMap<String, Integer> tileMap = new TreeMap<>();
 		List<Integer> tilesIndexes=new ArrayList<>(920);
 		
+		tiles.add(new Tile());
 		for(int row=0; row<30; row++) {
 			for(int col=0; col<32; col++) {
 				tiles.add(new Tile(pixels, palette, row, col));		
@@ -48,12 +49,15 @@ public class BackgroundGenerator {
 			}
 			System.out.println();
 		}
+		for(int i=0; i<64; i++) {
+			System.out.print(String.format("$%02X,", 0));
+		}
 		System.out.println("-------------------------------------\n\n");
 		
 		
 		System.out.println("TILE BANK\n---------------------------");
 		for(int i=0; i<tileBank.size(); i++) {
-			System.out.println(tileBank.get(i).getHexString()+" ; Tile "+i);
+			System.out.println(tileBank.get(i).getHexString()+" ; Tile "+String.format("$%02X,",i));
 		}
 		System.out.println("-------------------------------------\n\n");
 	}
