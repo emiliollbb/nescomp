@@ -4,17 +4,27 @@ import java.util.Map;
 
 public class Tile implements Comparable<Tile>  {
 	char[][] pixels;
+	char palette;
 	
 	public Tile() {
 		pixels = new char[8][8];
+		palette=0;
 	}
 
 	public Tile(int[][] img, Map<Integer, Character> palette, int tileRow, int tileCol) {
 		this();
 		for(int row=0; row<pixels.length; row++) {
 			for(int col=0; col<8; col++) {
-				Character v = palette.get(img[tileRow*8+row][tileCol*8+col]);
+				Character c = palette.get(img[tileRow*8+row][tileCol*8+col]);
+				if(c==null) {
+					System.out.println("Pixel: "+(tileRow*8+row)+", "+(tileCol*8+col)+" not found");
+					c=0;
+				}
+				char v = (char)(c%4);
 				pixels[row][col]=v;
+				if(v!=0) {
+					this.palette=(char)(v/4);
+				}
 			}
 		}
 	}
