@@ -29,6 +29,10 @@ public class Tile implements Comparable<Tile>  {
 		}
 	}
 	
+	public char getPalette() {
+		return palette;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb=new StringBuilder();

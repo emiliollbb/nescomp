@@ -23,6 +23,8 @@ public class BackgroundGenerator {
 		List<Integer> tilesIndexes=new ArrayList<>(960);
 		// Full image in bidimensional array of tiles
 		Tile[][] tileArray = new Tile[30][32];
+		// List of tileblocks for attr table. 4x4 tiles
+		List<TileBlock> tileBlocks=new ArrayList<>(64);
 		
 		// Convert image to tiles
 		for(int row=0; row<30; row++) {
@@ -34,6 +36,13 @@ public class BackgroundGenerator {
 		for(int row=0; row<30; row++) {
 			for(int col=0; col<32; col++) {
 				tileArray[row][col]=tiles.get(row*32+col);
+			}
+		}
+		
+		// Generate TileBlocks
+		for(int row=0; row<8; row++) {
+			for(int col=0; col<8; col++) {
+				//tileBlocks.add(new TileBlock(tileArray, row, col));
 			}
 		}
 		
@@ -53,6 +62,19 @@ public class BackgroundGenerator {
 			tilesIndexes.add(tileMap.get(t.toString()));
 		}
 		
+		generateTileMap(tilesIndexes);
+		generateTileBank(tileBank);
+	}
+
+	private static void generateTileBank(List<Tile> tileBank) throws Exception {
+		System.out.println("TILE BANK\n---------------------------");
+		for(int i=0; i<tileBank.size(); i++) {
+			System.out.println(tileBank.get(i).getHexString()+" ; Tile "+String.format("$%02X,",i));
+		}
+		System.out.println("-------------------------------------\n\n");
+	}
+
+	private static void generateTileMap(List<Integer> tilesIndexes) {
 		System.out.println("TILE MAP\n---------------------------");
 		for(int row=0; row<30; row++) {
 			System.out.print(".byt ");
@@ -61,21 +83,16 @@ public class BackgroundGenerator {
 			}
 			System.out.println();
 		}
-		for(int i=0; i<64; i++) {
-			System.out.print(String.format("$%02X,", 0));
-		}
-		System.out.println("-------------------------------------\n\n");
-		
-		
-		System.out.println("TILE BANK\n---------------------------");
-		for(int i=0; i<tileBank.size(); i++) {
-			System.out.println(tileBank.get(i).getHexString()+" ; Tile "+String.format("$%02X,",i));
+		for(int row=0; row<8; row++) {
+			for(int col=0; col<8; col++) {
+				System.out.print(String.format("$%02X,", 0));
+			}
 		}
 		System.out.println("-------------------------------------\n\n");
 	}
 	
 	public static void main(String[] args) throws Exception{
 		//BackgroundGenerator.load(new File("/home/emilio/proyectos/nes_demos/pong.png"));
-		BackgroundGenerator.load(new File("/home/emilio/proyectos/wedNESdaysExamples/desierto.png"));
+		BackgroundGenerator.load(new File("/home/emilio/proyectos/wedNESdaysExamples/desierto2.png"));
 	}
 }
