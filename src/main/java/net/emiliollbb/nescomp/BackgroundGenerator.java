@@ -65,6 +65,33 @@ public class BackgroundGenerator {
 		generateTileMap(tilesIndexes);
 		generateTileBank(tileBank);
 	}
+	
+	public static void generateTileBank(List<Tile> tileBank, List<Tile> tiledImage) {
+		// Generate bank from tiled image
+		for(Tile t: tiledImage) {
+			if(!tileBank.contains(t)) {
+				tileBank.add(t);
+			}
+		}
+	}
+	
+	public static List<Integer> generateTileMap(List<Tile> tiledImage, List<Tile> tileBank) {
+		// Image map, list of tile indexes from bank
+		List<Integer> imageMap = new ArrayList<>(960);
+		// Index to find tiles. Key=full tile as string, value=Index in bank
+		TreeMap<String, Integer> tileMap = new TreeMap<>();
+		
+		// Generate tile index, for easy find
+		for(int i=0; i<tileBank.size(); i++) {
+			tileMap.put(tileBank.get(i).toString(), i);
+		}
+		// Generate tile map of indexes
+		for(Tile t: tiledImage) {
+			imageMap.add(tileMap.get(t.toString()));
+		}
+		
+		return imageMap;
+	}
 
 	private static void generateTileBank(List<Tile> tileBank) throws Exception {
 		System.out.println("TILE BANK\n---------------------------");
@@ -91,8 +118,26 @@ public class BackgroundGenerator {
 		System.out.println("-------------------------------------\n\n");
 	}
 	
-	public static void main(String[] args) throws Exception{
+	public static void mainz(String[] args) throws Exception{
 		//BackgroundGenerator.load(new File("/home/emilio/proyectos/nes_demos/pong.png"));
 		BackgroundGenerator.load(new File("/home/emilio/proyectos/wedNESdaysExamples/desierto2.png"));
+	}
+	
+	public static void main(String[] args) throws Exception{
+		TileBank bank = new TileBank();
+		TiledImage left = new TiledImage(new File("/home/emilio/proyectos/wedNESdaysExamples/desierto.png"));
+		TiledImage right = new TiledImage(new File("/home/emilio/proyectos/wedNESdaysExamples/desierto2.png"));
+
+		System.out.println("TILE MAP 1\n---------------------------");
+		System.out.println(left.getHexString(bank));
+		System.out.println("-------------------------------------\n\n");
+
+		System.out.println("TILE MAP 2\n---------------------------");
+		System.out.println(right.getHexString(bank));
+		System.out.println("-------------------------------------\n\n");
+
+		System.out.println("TILE BANK\n---------------------------");
+		System.out.println(bank.getHexString());
+		System.out.println("-------------------------------------\n\n");
 	}
 }
